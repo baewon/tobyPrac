@@ -1,12 +1,20 @@
 package tby.user.dao;
 
+import tby.com.ConnectionMaker;
+import tby.com.NConnectionMaker;
 import tby.user.domain.User;
 
 import java.sql.*;
 
-public abstract class UserDao {
+public  class UserDao {
+
+    private ConnectionMaker connectionMaker;
+    public UserDao(){
+        connectionMaker = new NConnectionMaker();
+    }
+
     public void add(User user) throws ClassNotFoundException, SQLException{
-        Connection c = getConnection();
+        Connection c = connectionMaker.getConnection();
         PreparedStatement ps = c.prepareStatement("insert into user(id, name, password)" +
                                                        "VALUES(?,?,?)");
         ps.setString(1,user.getId());
@@ -19,7 +27,7 @@ public abstract class UserDao {
     }
 
     public User get(String id) throws  ClassNotFoundException, SQLException{
-        Connection c = getConnection();
+        Connection c = simpleConnectionMaker.makeNewConnection();
         PreparedStatement ps = c.prepareStatement("select * from user where id = ? ");
         ps.setString(1, id);
 
@@ -37,5 +45,4 @@ public abstract class UserDao {
         return user;
     }
 
-    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
 }

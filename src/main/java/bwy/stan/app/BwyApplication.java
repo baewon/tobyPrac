@@ -1,8 +1,6 @@
 package bwy.stan.app;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import tby.user.dao.NUserDao;
 import tby.user.dao.UserDao;
 import tby.user.domain.User;
 
@@ -15,7 +13,7 @@ public class BwyApplication {
 
 		//SpringApplication.run(BwyApplication.class, args);
 
-		UserDao dao = new NUserDao();
+		UserDao dao = new UserDao();
 
 		User user = new User();
 		user.setId("bwy12");
